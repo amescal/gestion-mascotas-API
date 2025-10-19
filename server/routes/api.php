@@ -41,3 +41,26 @@ Route::post('/login', [LoginController::class,'doLogin']);
  */
 Route::any('/logout', [LoginController::class,'doLogout'])->middleware('auth:sanctum');
 
+/** Ruta que genera un listado de mascotas del usuario 
+ *  HTTP GET
+ *  http://localhost:.../api/mascotasAMC
+ */
+Route::get('/mascotasAMC', [AMCMascotasControllerAPI::class, 'listarMascotasAMC'])->middleware('auth:sanctum');
+
+/** Ruta que permite a un usuario autenticado crear una mascota 
+ *  HTTP POST
+ *  http://localhost:.../api/crearmascotaAMC
+ */
+Route::post('/crearmascotaAMC', [AMCMascotasControllerAPI::class, 'crearMascotaAMC'])->middleware('auth:sanctum');
+
+/** Ruta que permite a un usuario autenticado actualizar una mascota propia 
+ *  HTTP PUT
+ *  http://localhost:.../api/mascotaAMC/{mascota}
+ */
+Route::put('/mascotaAMC/{mascota}', [AMCMascotasControllerAPI::class, 'cambiarMascotaAMC'])->whereNumber('mascota')->middleware('auth:sanctum');
+
+/** Ruta que permite a un usuario autenticado borrar una mascota propia 
+ *  HTTP DELETE
+ *  http://localhost:.../api/mascotaAMC/{mascota}
+ */
+Route::delete('/mascotaAMC/{mascota}', [AMCMascotasControllerAPI::class, 'borrarMascotaAMC'])->middleware('auth:sanctum');
