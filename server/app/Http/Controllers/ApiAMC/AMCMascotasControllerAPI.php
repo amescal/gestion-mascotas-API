@@ -147,4 +147,38 @@ class AMCMascotasControllerAPI extends Controller
         }
     }
 
+    //Método controlador que elimina una mascota si pertenece al usuario
+    //solo se accede a este método controlador si el usuario está autenticado porque usamos el middleware sanctum en la ruta
+    public function borrarMascotaAMC($mascota)
+    {
+        //si $mascota no es un número
+        if(!is_numeric($mascota)){
+            //devolvemos el estado 400 y un mensaje informando del error
+            return response()->json([
+                'mensaje' => 'El ID de la mascota que quieres borrar tiene que ser un número'
+            ], 400);
+        //si $mascota es un número    
+        } else {
+            //buscamos la instancia de mascota con la id pasada por parametro en el metodo controlador
+            $instanciaMascota=MascotaAMC::find($mascota);
+            //si esa instancia no existe (porque las mascota no está en la base de datos)
+            //o si la instacia de mascosta existe pero no pertenece al usuario
+            if(!$instanciaMascota || $instanciaMascota->user_id!==auth()->id()){
+                //devolvemos el estado 200 y un mensaje informando al usuario, neutro para no dar informacion de la bd
+                return response()->json([
+                'mensaje' => 'La petición es correcta pero no se ha realizado ninguna acción'
+                ], 200);
+            }
+            //si la mascota existe en la base de datos y ademas pertenece al usuario
+            if($instanciaMascota && $instanciaMascota->user_id===auth()->id()){
+                //si podemos proceder a borrarla
+                $instanciaMascota->delete();
+                //devolvemos el estado 200 y un mensaje informando que la operacion se ha realizado con exito
+                return response()->json([
+                'mensaje' => 'Mascota borrada correctamente'
+                ], 200);
+            }
+        }
+    }
+
 }
