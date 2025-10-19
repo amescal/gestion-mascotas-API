@@ -87,4 +87,64 @@ class AMCMascotasControllerAPI extends Controller
         }
     }
     
+    //Método controlador que cambia una mascota con los datos que recibe en formato json
+    //solo se accede a este método controlador si el usuario está autenticado porque usamos el middleware sanctum en la ruta
+    public function cambiarMascotaAMC(MascotaAMC $mascota, Request $request)
+    {
+        //Laravel ya controla que el id de la mascota pertenezca a la base de datos, si no lo encuentra genera una respuesta 404
+        //si la mascota que se quiere actualizar no es una de las mascotas del usuario autenticado
+        if($mascota->user_id!==auth()->id()){
+            //devolvemos el estado 403 e informamos del error
+            return response()->json([
+                'mensaje' => 'No puedes modificar una mascota que no te pertenece'
+            ], 403);
+        //si la mascota es del usuario    
+        } else {
+            //si los datos recibidos NO son tipo JSON
+            if(!$request->isJson()){
+                //devolvemos el estado 403 e informamos del error
+                return response()->json([
+                    'mensaje' => 'Los datos recibidos no están en formato JSON'
+                ], 403);
+            //si los datos recibidos son de tipo JSON
+            } else {
+                //validamos los datos recibidos usando el facades Validator
+                $validador=Validator::make($request->json()->all(), 
+                    [
+                    'descripcion' => 'required|string|max:250',
+                    'publica' => 'required|string|in:Si,No'
+                    ],
+                    [//personalización de los mensajes de error al validar
+                        'descripcion.required'=>'La descripción de la mascota no se ha indicado',
+                        'descripcion.string'=>'La descripción de la mascota tiene que ser una cadena',
+                        'descripcion.max'=>'La descripción de la mascota no puede tener más de 250 caracteres',
+                        'publica.required'=>'No has indicado si la mascota es o no pública',
+                        'publica.string'=>'Si la mascota es o no pública tiene que ser una cadenda',
+                        'publica.in'=>'Si la mascota es pública sólo puede ser Si o No'
+                    ]
+                );
+                //si la validacion de los datos falla porque no se cumplen las reglas establecidas en el validador
+                if($validador->fails()){
+                    //recogemos los errores
+                    $errores=$validador->errors()->all();
+                    //devolvemos como json los errores y el c'odigo 400
+                    return response()->json([
+                        'mensaje' => 'Datos incorrectos',
+                        'errores' => $errores
+                    ], 400);
+                //si el validador no falla
+                } else {
+                    //recogemos los datos
+                    $datosRecibidos=$validador->validated();
+                    //Actualizamos los datos de la mascota
+                    $mascota->update($datosRecibidos);
+                    //devolvemos el estado 200 y la id de la nueva mascota creada
+                    return response()->json([
+                        'mensaje' => 'Mascota modificada correctamente'
+                    ], 200);
+                }
+            }
+        }
+    }
+
 }
