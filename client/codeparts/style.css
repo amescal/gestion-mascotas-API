@@ -1,0 +1,73 @@
+* {
+    /* Hacemos que la caja de cada elemento incluya en el width que le pongamos el borde y el padding (el margin no) */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    width: 90%;
+    margin: auto;
+}
+/*HEADER*/
+#cabecera{
+    background-color: rgb(192, 153, 194);
+    color: beige;
+    text-align: center;
+    padding: 2em 2em 1em 2em;
+}
+
+header h1 {
+    margin-bottom: 1.5em;
+}
+
+/*NAVEGACION*/
+/*menu navegacion horizontal hecho con listas*/
+nav {
+    width: 80%;
+    margin: auto;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    /*se alinean horizontalmente los elementos del menu de navegacion dejando el mismo espacio entre ellos*/
+    justify-content: space-between;
+    /*se alinean verticalmente los elementos del menu de navegacion en la base del contenido*/
+    align-items: baseline;
+}
+
+li a {
+    padding: 1em 2em;
+    border: 2px solid beige;
+    border-radius: 10px;
+    background-color: rgb(136, 136, 136);
+    color: beige;
+    text-decoration: none;
+    font-weight: bolder;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+li a:hover {
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+li:first-child a, li:last-child a {
+    background-color: rgb(160, 67, 168);
+}
+
+table {
+    width: 100%;
+}
+
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse; /* Evita bordes dobles */
+    padding:10px;
+}
+
+th {
+    color: beige;
+    background-color: rgb(160, 67, 168);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
