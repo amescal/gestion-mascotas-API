@@ -6,9 +6,6 @@ require __DIR__.'/vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
-//unset($_SESSION['token']);
-//$datosAutenticacion=['email'=>'AMC1@email.AMC', 'password'=>'AMC1'];
-
 $errores=[];
 $client=new Client(
     [
