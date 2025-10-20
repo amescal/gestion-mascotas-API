@@ -65,14 +65,14 @@ php artisan serve --port=8080
 cd client
 composer install
 ```
-2. Ejecuta el cliente desde tu servidor local (por ejemplo, XAMPP) o usando el servidor de PHP:
+2. Ejecuta el cliente desde tu servidor local usando el servidor de PHP:
 ```bash
-php -S localhost:8080
+php -S localhost:9000
 ```
-3. El cliente estará disponible en http://localhost:8080/login.php
+3. El cliente estará disponible en http://localhost:9000/login.php
 
 ### Prueba 💻
-1. Accede en el navegador a 👉 [http://localhost:8080/login.php](http://localhost:8080/login.php)
+1. Accede en el navegador a 👉 [http://localhost:9000/login.php](http://localhost:9000/login.php)
 2. Inicia sesión con las credenciales del seeder
 3. Explora las siguientes funcionalidades del cliente:  
  - Login / Logout  
