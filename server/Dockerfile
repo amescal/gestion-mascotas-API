@@ -1,5 +1,5 @@
 # Usa una imagen oficial de PHP con Apache y PHP 8.1 
-FROM php:8.1-apache 
+FROM php:8.2-apache 
 
 # Configura el directorio de trabajo 
 WORKDIR /var/www/html 
