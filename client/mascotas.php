@@ -29,13 +29,14 @@ use function PHPUnit\Framework\isEmpty;
         $token=$_SESSION['token'];
         $client=new Client(
             [
+                'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
                 'http_errors'=>false,
                 //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
                 'allow_redirects'=>false
             ]
         );
         //enviamos una solicitud http get al servidor
-        $response=$client->get('http://localhost:8080/api/mascotasAMC',[
+        $response=$client->get('mascotasAMC',[
             'headers'=>['Authorization'=>'Bearer '.$token]
         ]);
         $codigoHTTP=$response->getStatusCode(); //Obtener el código de respuesta HTTP

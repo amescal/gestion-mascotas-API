@@ -25,13 +25,14 @@ use GuzzleHttp\Client;
         $token=$_SESSION['token'];
         $client=new Client(
             [
+                'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
                 'http_errors'=>false,
                 //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
                 'allow_redirects'=>false
             ]
         );
         //enviamos una solicitud http post al servidor
-        $response=$client->post('http://localhost:8080/api/logout',[
+        $response=$client->post('logout',[
                 'headers'=>['Authorization'=>'Bearer '.$token]
         ]);
         $codigoHTTP=$response->getStatusCode(); //Obtener el código de respuesta HTTP
@@ -43,7 +44,7 @@ use GuzzleHttp\Client;
             echo "<h3>Código ".$codigoHTTP.": ".($mensaje->mensaje)."</h3>";
             ?>
             <br><br>
-            <a href="http://localhost:9000/login.php">Volver a hacer login</a>
+            <a href="login.php">Volver a hacer login</a>
             <?php
         } else {
             //por si se recibe otro código
@@ -54,7 +55,7 @@ use GuzzleHttp\Client;
         echo '<h3>El usuario no estaba identificado</h3>';
         ?>
             <br><br>
-            <a href="http://localhost:9000/login.php">Login</a>
+            <a href="login.php">Login</a>
         <?php
     }
     ?>

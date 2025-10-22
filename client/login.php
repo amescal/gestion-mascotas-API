@@ -6,9 +6,12 @@ require __DIR__.'/vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
+//unset($_SESSION['token']);
+
 $errores=[];
 $client=new Client(
     [
+        'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
         'http_errors'=>false,
         //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
         'allow_redirects'=>false
@@ -33,9 +36,8 @@ $client=new Client(
         echo '<h1>Usuario ya identificado</h1>';
         ?>
         <br><br>
-        <a href="http://localhost:9000/logout.php">Cerrar sesión</a>
+        <a href="logout.php">Cerrar sesión</a>
         <?php
-        //var_dump($_SESSION['token']);
     //si hemos recibido datos en el post    
     } else if(!empty($_POST)) {
         //tal como se dijo en clase se hace una comprobacion mínima de que hay datos
@@ -45,7 +47,7 @@ $client=new Client(
             'password'=>$_POST['password']??''
         ];
         //hacemos la peticion enviando los datos del formulario como parametros
-        $response=$client->post('http://localhost:8080/api/login', ['form_params'=>$datosAutenticacion]);
+        $response=$client->post('login', ['form_params'=>$datosAutenticacion]);
         //recogemos el codigo de estado de la respuesta HTTP
         $codigoHTTP=$response->getStatusCode();
         //recogemos el cuerpo del mensaje como un objeto
@@ -59,7 +61,7 @@ $client=new Client(
             echo "<h3>Código ". $codigoHTTP.":  ".($mensaje->mensaje)."</h3>";
             ?>
             <br><br>
-            <a href="http://localhost:9000/mascotas.php">Ver las mascotas del usuario</a>
+            <a href="mascotas.php">Ver las mascotas del usuario</a>
             <?php
         //si el c'odigo es 401 o 422 son errores conocidos
         } elseif ($codigoHTTP===401 || $codigoHTTP===422){
