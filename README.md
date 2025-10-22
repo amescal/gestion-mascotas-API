@@ -1,6 +1,12 @@
 # gestion-mascotas-API
 Gestión CRUD de mascotas virtuales con API REST en Laravel 10 y cliente PHP/Guzzle y con autenticación de usuarios
 
+## Prueba la aplicación [![Static Badge](https://img.shields.io/badge/Probar%20online!-%23A043A8?style=plastic)](https://gestion-mascotas-api-cliente.onrender.com/login.php)
+
+Estos son usuarios de prueba (datos no reales)
+- user: AMC1@email.AMC password: AMC1
+- user: AMC2@email.AMC password: AMC2
+
 ## Características principales
 
 ### Server (Laravel API)
