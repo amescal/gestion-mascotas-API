@@ -31,6 +31,7 @@ use GuzzleHttp\Client;
 
             $client=new Client(
                 [
+                    'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
                     'http_errors'=>false,
                     //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
                     'allow_redirects'=>false
@@ -41,7 +42,7 @@ use GuzzleHttp\Client;
             //recogemos la id recibida en el formulario
             $id=$_POST['id']??'';
             //enviamos una solicitud http delete al servidor usando la id recogida y pasando el token de autenticacion
-            $response=$client->delete("http://localhost:8080/api/mascotaAMC/{$id}",[
+            $response=$client->delete("mascotaAMC/{$id}",[
                 'headers'=>['Authorization'=>'Bearer '.$token]
             ]);
             //recogemos el codigo de estado de la respuesta HTTP

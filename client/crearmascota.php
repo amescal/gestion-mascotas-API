@@ -39,13 +39,14 @@ use GuzzleHttp\Client;
 
             $client=new Client(
                 [
+                    'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
                     'http_errors'=>false,
                     //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
                     'allow_redirects'=>false
                 ]
             );
             //enviamos una solicitud http post al servidor
-            $response=$client->post('http://localhost:8080/api/crearmascotaAMC',[
+            $response=$client->post('crearmascotaAMC',[
                 'headers'=>['Authorization'=>'Bearer '.$token],
                 'form_params'=>$datosNuevaMascota
             ]);
@@ -77,7 +78,7 @@ use GuzzleHttp\Client;
             } 
             ?>
                 <br><br>
-                <a href="http://localhost:9000/mascotas.php">Ir al listado de mascotas</a>
+                <a href="mascotas.php">Ir al listado de mascotas</a>
             <?php
         }
     //si no hay un token almacenado en la sesion

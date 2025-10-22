@@ -33,6 +33,7 @@ use GuzzleHttp\Client;
 
             $client=new Client(
                 [
+                    'base_uri' => 'https://gestion-mascotas-api-server.onrender.com/api/',
                     'http_errors'=>false,
                     //añadimos un parámetro para todas las peticiones para que no haga una segunda petición al recibir un error
                     'allow_redirects'=>false
@@ -48,7 +49,7 @@ use GuzzleHttp\Client;
                 'publica'=>$_POST['publica']??''
             ];
             //enviamos una solicitud http put al servidor con los datos como json usando la id recogida
-            $response=$client->put("http://localhost:8080/api/mascotaAMC/{$id}",[
+            $response=$client->put("mascotaAMC/{$id}",[
                 'headers'=>['Authorization'=>'Bearer '.$token],
                 'json'=>$datosParaActualizar
             ]);
@@ -93,9 +94,4 @@ use GuzzleHttp\Client;
 
 </body>
 </html>
-
-
-
-
-
 
